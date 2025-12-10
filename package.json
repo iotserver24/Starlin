@@ -1,0 +1,26 @@
+{
+    "name": "starlin-framework",
+    "version": "1.0.0",
+    "description": "AI-first full-stack JavaScript framework",
+    "main": "lib/core/Starlin.js",
+    "bin": {
+        "starlin": "./bin/starlin.js"
+    },
+    "scripts": {
+        "test": "jest"
+    },
+    "keywords": [
+        "framework",
+        "full-stack",
+        "ai-first",
+        "react"
+    ],
+    "author": "Your Name",
+    "license": "MIT",
+    "dependencies": {
+        "express": "^4.18.2",
+        "commander": "^11.0.0",
+        "fs-extra": "^11.1.1",
+        "chokidar": "^3.5.3"
+    }
+}

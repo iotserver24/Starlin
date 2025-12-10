@@ -1,0 +1,13 @@
+{
+    "name": "my-starlin-app",
+    "version": "1.0.0",
+    "description": "A new Starlin project",
+    "private": true,
+    "scripts": {
+        "dev": "starlin dev",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+        "starlin-framework": "file:../../"
+    }
+}
