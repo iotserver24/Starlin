@@ -13,9 +13,11 @@ Starlin is designed to be simple and transparent. Here is how it works under the
 │   │   ├── Router.js          # File-based Routing Logic
 │   │   ├── ApiHandler.js      # API Request Handling
 │   │   ├── StateManager.js    # Reactive Proxy State
-│   │   └── ComponentRenderer.js # DOM Rendering Engine
+│   │   └── ComponentRenderer.js # Server-side logic (legacy/ssr prep)
 │   ├── client/                # Client-side Runtime
-│   │   └── client.js          # Browser routing & state
+│   │   ├── client.js          # Browser routing, state, & events
+│   │   ├── dom.js             # ⚡ Lightweight Virtual DOM (Diffing)
+│   │   └── error-overlay.js   # 🚨 Runtime Error Display
 ```
 
 ## 🧠 Core Concepts
@@ -26,35 +28,40 @@ Starlin scans the `src/pages` directory.
 
 - `index.js` maps to `/`
 - `about.js` maps to `/about`
-- Nested folders are supported (e.g., `blog/post.js` -> `/blog/post`).
-
-It uses Dynamic Import (`import()`) to load these modules on demand.
+- Uses Dynamic Import (`import()`) to load these modules on demand in the browser.
 
 ### 2. Auto-API Endpoints (`ApiHandler.js`)
 
 Starlin scans the `src/api` directory.
 
-- Files export functions named `GET`, `POST`, `PUT`, `DELETE`.
-- These are automatically mapped to Express routes under `/api/`.
+- Exports named `GET`, `POST`, `PUT`, `DELETE` are mapped to Express routes.
 - Example: `src/api/users.js` -> `/api/users`.
 
-### 3. Reactive State (`StateManager.js`)
+### 3. Reactive State (`StateManager.js` & `client.js`)
 
-Starlin uses JavaScript `Proxy` objects to create a global state.
+Starlin uses JavaScript `Proxy` objects to track state.
 
-- When a property on `state` is modified, the Proxy intercepts the change.
-- It triggers a re-render of the current page component.
-- This provides a React-like "reactivity" without a complex Virtual DOM (currently acts more like a full refresh of the component DOM).
+- `state.count = 5` triggers the `set` trap.
+- This immediately calls the `render()` function.
 
-### 4. Component Rendering (`ComponentRenderer.js`)
+### 4. Virtual DOM Rendering (`dom.js`) ⚡ *NEW in v0.0.2*
 
-- Components are simple functions that return HTML strings (Template Literals).
-- The renderer injects this HTML into the `#app` div.
-- It scans the HTML for `data-click` attributes and attaches event listeners that map to the exported `actions` object of the page.
+Instead of wiping the document with `innerHTML` (which kills input focus and performance), Starlin now uses a smart diffing algorithm:
 
-### 5. Client Runtime (`client.js`)
+1. **Render**: The component function is called to generate an HTML string.
+2. **Parse**: This string is parsed into a lightweight DOM tree (a `template`).
+3. **Diff**: We compare the new template against the actual real DOM.
+4. **Patch**: We only update the text nodes or attributes that changed.
+    - *Result*: Input focus is preserved! Scrolling is smooth! Updates are fast!
 
-- Runs in the browser.
-- Intercepts link clicks for SPA (Single Page Application) navigation.
-- syncs state changes to the view.
-- Handles API requests via `fetch`.
+### 5. Event Delegation
+
+- Starlin attaches a single event listener to the root `#app` element.
+- It listens for clicks on elements with `data-click`.
+- This avoids the overhead of attaching/removing listeners on every render.
+
+### 6. Error handling (`error-overlay.js`) 🚨 *NEW in v0.0.2*
+
+- Starlin wraps API calls and Render cycles in try/catch blocks.
+- It also listens for global `error` and `unhandledrejection` events.
+- Errors are displayed in a highly visible overlay on top of your app, making debugging instant.

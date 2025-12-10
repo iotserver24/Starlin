@@ -1,18 +1,17 @@
 # 🗺️ Roadmap & Reality Check
 
-Starlin v0.0.1 is a proof-of-concept. Here is the honest truth about what is missing and what we plan to add.
+Starlin v0.0.2 is a proof-of-concept. Here is the honest truth about what is missing and what we plan to add.
 
 ## ❌ Current Limitations (The "Missing" List)
 
-1. **Performance**
-    - No Virtual DOM (Re-renders are expensive/slow).
+1. **Production Readiness**
     - No Code Splitting (Large apps will load slowly).
     - No Server-Side Rendering (SSR).
+    - No build step (Minification, bundling).
 
 2. **Developer Experience**
     - No TypeScript support.
-    - No Hot Module Replacement (HMR) - currently requires full reload or simple re-render.
-    - No explicit Error Boundaries.
+    - No Hot Module Replacement (HMR) - currently typically requires reload implies re-import.
 
 3. **Ecosystem**
     - No Component Library.
@@ -27,12 +26,12 @@ Starlin v0.0.1 is a proof-of-concept. Here is the honest truth about what is mis
 
 To make Starlin competitive with frameworks like Next.js, we plan to implement:
 
-1. **Virtual DOM**: Implement a lightweight diffing algorithm for faster updates.
-2. **Real Database**: Add adapters for MongoDB and PostgreSQL.
-3. **TypeScript**: Add type definitions and TS support.
-4. **shadcn/ui Integration**: Easy import of accessible UI components.
-5. **Authentication**: Built-in simple auth (username/password, JWT).
-6. **Security**: Basic input sanitization and header security.
+1. ✅ **Virtual DOM**: Implemented in v0.0.2! (Input focus preserved, fast updates).
+2. ✅ **Error Overlay**: Implemented in v0.0.2! (Instant debug feedback).
+3. **Real Database**: Add adapters for MongoDB and PostgreSQL.
+4. **TypeScript**: Add type definitions and TS support.
+5. **shadcn/ui Integration**: Easy import of accessible UI components.
+6. **Authentication**: Built-in simple auth (username/password, JWT).
 
 ## 📅 Timeline
 
