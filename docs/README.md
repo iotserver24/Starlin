@@ -1,4 +1,4 @@
-# 🚀 Starlin Framework (v0.0.2)
+# 🚀 Starlin Framework (v0.0.3)
 
 > **"Just for fun, using AI for AI"**
 
@@ -17,23 +17,25 @@ It is explicitly designed to be **AI-Friendly**. Its consistent structure and "C
 
 ## 📚 Documentation
 
-- [**Getting Started**](./GETTING_STARTED.md) - How to install and build your first Starlin app.
-- [**Architecture**](./ARCHITECTURE.md) - How Starlin works under the hood (now with VDOM!).
+- [**Getting Started**](./GETTING_STARTED.md) - Installation, Usage, and **Environment Variables**.
+- [**Architecture**](./ARCHITECTURE.md) - VDOM, Error Overlay, and Client Runtime.
 - [**Comparison**](./COMPARISON.md) - Starlin vs React/Next.js.
 - [**Roadmap & Reality Check**](./ROADMAP.md) - What's missing and what's coming next.
 
-## ✨ Key Features (v0.0.2)
+## ✨ Key Features (v0.0.3)
 
 - ✅ **File-Based Routing**: Just like Next.js. `src/pages/about.js` -> `/about`.
 - ✅ **Auto-API Endpoints**: `src/api/users.js` -> `/api/users`.
-- ✅ **Virtual DOM Rendering**: Smart diffing algorithm updates only what changed. No more `innerHTML` wipes! focus is preserved.
+- ✅ **Virtual DOM Rendering**: Smart diffing algorithm updates only what changed. Preserves focus & scroll.
+- ✅ **Environment Variables**: Full `.env` support. Securely access `PROD` and other configs.
+- ✅ **Smart 404 Page**: Stunning built-in 404 page that changes behavior based on `PROD` mode.
 - ✅ **Error Overlay**: Runtime errors pop up instantly in a beautiful dark-mode overlay.
 - ✅ **Reactive State**: Simple proxy-based state management that triggers smart re-renders.
 - ✅ **Zero Config**: It just works out of the box.
 
 ## ⚠️ Disclaimer
 
-This is a **v0.0.2** release created for educational and experimental purposes. It is getting closer to being usable for real prototypes! Please read the [Roadmap](./ROADMAP.md) for details.
+This is a **v0.0.3** release created for educational and experimental purposes. It is getting closer to being usable for real prototypes! Please read the [Roadmap](./ROADMAP.md) for details.
 
 ---
 

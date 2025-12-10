@@ -44,24 +44,27 @@ Starlin uses JavaScript `Proxy` objects to track state.
 - `state.count = 5` triggers the `set` trap.
 - This immediately calls the `render()` function.
 
-### 4. Virtual DOM Rendering (`dom.js`) ⚡ *NEW in v0.0.2*
+### 4. Virtual DOM Rendering (`dom.js`) ⚡
 
-Instead of wiping the document with `innerHTML` (which kills input focus and performance), Starlin now uses a smart diffing algorithm:
+Instead of wiping the document with `innerHTML`, Starlin uses a smart diffing algorithm:
 
 1. **Render**: The component function is called to generate an HTML string.
-2. **Parse**: This string is parsed into a lightweight DOM tree (a `template`).
+2. **Parse**: This string is parsed into a lightweight DOM tree.
 3. **Diff**: We compare the new template against the actual real DOM.
 4. **Patch**: We only update the text nodes or attributes that changed.
-    - *Result*: Input focus is preserved! Scrolling is smooth! Updates are fast!
+    - *Result*: Input focus preserved, smooth scrolling, fast updates.
 
-### 5. Event Delegation
+### 5. Client Initialization & Env Vars
 
-- Starlin attaches a single event listener to the root `#app` element.
-- It listens for clicks on elements with `data-click`.
-- This avoids the overhead of attaching/removing listeners on every render.
+When the client boots up (`client.js`):
 
-### 6. Error handling (`error-overlay.js`) 🚨 *NEW in v0.0.2*
+1. It fetches `/_starlin/env` to get safe public variables (like `PROD`).
+2. It sets `window.STARLIN_ENV`.
+3. It initializes the router and renders the current page.
 
-- Starlin wraps API calls and Render cycles in try/catch blocks.
-- It also listens for global `error` and `unhandledrejection` events.
-- Errors are displayed in a highly visible overlay on top of your app, making debugging instant.
+### 6. Built-in Error Handling 🚨
+
+- **404 Handling**: If a page is missing, `render404()` is called.
+  - If `PROD=false`, it shows the exact file path and internal error.
+  - If `PROD=true`, it shows a polished "Page Not Found" user message.
+- **Error Overlay**: Runtime errors (syntax, API failures) are caught via global event listeners and displayed in a dark-mode overlay on top of the UI.
